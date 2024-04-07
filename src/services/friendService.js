@@ -42,7 +42,28 @@ class FriendService {
         return response;
     }
 
-    async cancelRequest(cancellerId, cancelRequestOfId) {
+    async cancelOutgoingRequest(cancellerId, cancelRequestFromId) {
+        const cancelRequestFrom = await this.friendRepository.getOneByData({
+            userId: cancelRequestFromId
+        });
+        if (!cancelRequestFrom) {
+            throw new customError(400, "No request found");
+        } else {
+            if (cancelRequestFrom.friends.includes(cancellerId)) {
+                throw new customError(400, "You are friends");
+            }
+            if (!cancelRequestFrom.requests.includes(cancellerId)) {
+                throw new customError(400, "No request found");
+            }
+        }
+        const response = await this.friendRepository.cancelOutgoingRequest(
+            cancellerId,
+            cancelRequestFromId
+        );
+        return response;
+    }
+
+    async rejectIncomingRequest(cancellerId, cancelRequestOfId) {
         const canceller = await this.friendRepository.getOneByData({
             userId: cancellerId
         });
@@ -56,7 +77,7 @@ class FriendService {
                 throw new customError(400, "No request found");
             }
         }
-        const response = await this.friendRepository.deleteFriendRequest(
+        const response = await this.friendRepository.rejectIncomingRequest(
             cancellerId,
             cancelRequestOfId
         );

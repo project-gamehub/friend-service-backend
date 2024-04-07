@@ -2,21 +2,21 @@ import FriendService from "../services/friendService.js";
 import { customError } from "../errors/errorUtils/index.js";
 import { getIdByUsername } from "../utils/index.js";
 
-const cancelRequest = async (req, res) => {
+const rejectIncomingRequest = async (req, res) => {
     const cancellerId = req.senderId;
     const cancelRequestOfUsername = req.params?.username;
     if (!cancelRequestOfUsername) {
-        throw new customError(400, "Whose request to cancel?");
+        throw new customError(400, "Whose request to reject?");
     }
     const cancelRequestOf = await getIdByUsername(cancelRequestOfUsername);
 
     const friendService = new FriendService();
-    await friendService.cancelRequest(cancellerId, cancelRequestOf);
+    await friendService.rejectIncomingRequest(cancellerId, cancelRequestOf);
 
     return res.status(200).json({
-        message: "Request cancelled successfully",
+        message: "Request rejected successfully",
         success: true
     });
 };
 
-export default cancelRequest;
+export default rejectIncomingRequest;

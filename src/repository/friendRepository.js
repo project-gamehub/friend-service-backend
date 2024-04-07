@@ -15,10 +15,19 @@ class FriendRepository {
         return user;
     }
 
-    async deleteFriendRequest(cancellerId, cancelRequestOfId) {
+    async rejectIncomingRequest(cancellerId, cancelRequestOfId) {
         const user = await Friend.findOneAndUpdate(
             { userId: cancellerId },
             { $pull: { requests: cancelRequestOfId } },
+            { new: true }
+        );
+        return user;
+    }
+
+    async cancelOutgoingRequest(cancellerId, cancelRequestFromId) {
+        const user = await Friend.findOneAndUpdate(
+            { userId: cancelRequestFromId },
+            { $pull: { requests: cancellerId } },
             { new: true }
         );
         return user;

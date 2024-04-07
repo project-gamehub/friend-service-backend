@@ -2,7 +2,8 @@ import express from "express";
 import { errorMiddleware } from "../errors/errorMiddlewares/index.js";
 import {
     acceptRequest,
-    cancelRequest,
+    cancelOutgoingRequest,
+    rejectIncomingRequest,
     sendRequest
 } from "../controllers/index.js";
 import { asyncEventHandler } from "../errors/errorUtils/index.js";
@@ -16,9 +17,14 @@ router.post(
     asyncEventHandler(sendRequest)
 );
 router.post(
-    "/cancel-request/:username",
+    "/cancel-outgoing-request/:username",
     verifyAccessToken,
-    asyncEventHandler(cancelRequest)
+    asyncEventHandler(cancelOutgoingRequest)
+);
+router.post(
+    "/reject-incoming-request/:username",
+    verifyAccessToken,
+    asyncEventHandler(rejectIncomingRequest)
 );
 router.post(
     "/accept-request/:username",

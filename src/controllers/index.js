@@ -1,5 +1,6 @@
-import sendRequest from "./sendFriendRequestController.js";
-import cancelRequest from "./cancelFriendRequestController.js";
-import acceptRequest from "./acceptFriendRequestController.js";
+import sendRequest from "./sendFriendRequest.js";
+import cancelOutgoingRequest from "./cancelOutgoingFriendRequest.js";
+import acceptRequest from "./acceptFriendRequest.js";
+import rejectIncomingRequest from "./rejectIncomingFriendRequest.js";
 
-export { sendRequest, cancelRequest, acceptRequest };
+export { sendRequest, cancelOutgoingRequest, acceptRequest, rejectIncomingRequest };
