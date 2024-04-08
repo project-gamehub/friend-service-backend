@@ -3,6 +3,7 @@ import { errorMiddleware } from "../errors/errorMiddlewares/index.js";
 import {
     acceptRequest,
     cancelOutgoingRequest,
+    getFriendList,
     rejectIncomingRequest,
     sendRequest,
     unfriend
@@ -36,6 +37,11 @@ router.post(
     "/unfriend/:username",
     verifyAccessToken,
     asyncEventHandler(unfriend)
+);
+router.get(
+    "/get-friend-list/:username",
+    verifyAccessToken,
+    asyncEventHandler(getFriendList)
 );
 
 router.get("/ping", (req, res) => {

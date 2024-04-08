@@ -132,6 +132,11 @@ class FriendService {
 
         await this.friendRepository.removeFriend(user2Id, user1Id);
     }
+
+    async getFriendList(userId, page) {
+        const data = await this.friendRepository.getFriendList(userId);
+        return data;
+    }
 }
 
 export default FriendService;

@@ -10,14 +10,12 @@ const friendSchema = new mongoose.Schema(
         },
         requests: [
             {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
+                type: mongoose.Schema.Types.ObjectId
             }
         ],
         friends: [
             {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
+                type: mongoose.Schema.Types.ObjectId
             }
         ]
     },

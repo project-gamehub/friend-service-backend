@@ -44,16 +44,9 @@ class FriendRepository {
         return user;
     }
 
-    async update(id, dataToUpdate) {
-        const user = await Friend.findOneAndUpdate({ id }, dataToUpdate, {
-            new: true
-        });
-        return user;
-    }
-
-    async delete(id) {
-        const user = await Friend.findByIdAndDelete(id);
-        return user;
+    async getFriendList(userId) {
+        const friendList = await Friend.findOne({ userId }, "friends -_id");
+        return friendList?.friends ? friendList.friends : [];
     }
 
     async getOneByData(data, getFields = "") {
