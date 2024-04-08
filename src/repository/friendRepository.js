@@ -1,7 +1,7 @@
 import Friend from "../models/friendModel.js";
 
 class FriendRepository {
-    async create(userId) {
+    async createUser(userId) {
         const user = await Friend.create({ userId, requests: [], friends: [] });
         return user;
     }
@@ -15,19 +15,20 @@ class FriendRepository {
         return user;
     }
 
-    async rejectIncomingRequest(cancellerId, cancelRequestOfId) {
+    async deleteFriendRequest(deleteRequestofId, deleteRequestFromId) {
         const user = await Friend.findOneAndUpdate(
-            { userId: cancellerId },
-            { $pull: { requests: cancelRequestOfId } },
+            { userId: deleteRequestFromId },
+            { $pull: { requests: deleteRequestofId } },
             { new: true }
         );
         return user;
     }
 
-    async cancelOutgoingRequest(cancellerId, cancelRequestFromId) {
+    // remove user 2 from user 1
+    async removeFriend(user1Id, user2Id) {
         const user = await Friend.findOneAndUpdate(
-            { userId: cancelRequestFromId },
-            { $pull: { requests: cancellerId } },
+            { userId: user1Id },
+            { $pull: { friends: user2Id } },
             { new: true }
         );
         return user;

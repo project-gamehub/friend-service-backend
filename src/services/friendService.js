@@ -7,7 +7,7 @@ class FriendService {
     }
 
     async createUser(receiverId) {
-        const user = await this.friendRepository.create(receiverId);
+        const user = await this.friendRepository.createUser(receiverId);
         return user;
     }
 
@@ -56,30 +56,30 @@ class FriendService {
                 throw new customError(400, "No request found");
             }
         }
-        const response = await this.friendRepository.cancelOutgoingRequest(
+        const response = await this.friendRepository.deleteFriendRequest(
             cancellerId,
             cancelRequestFromId
         );
         return response;
     }
 
-    async rejectIncomingRequest(cancellerId, cancelRequestOfId) {
-        const canceller = await this.friendRepository.getOneByData({
-            userId: cancellerId
+    async rejectIncomingRequest(rejectorId, rejectRequestOfId) {
+        const rejector = await this.friendRepository.getOneByData({
+            userId: rejectorId
         });
-        if (!canceller) {
+        if (!rejector) {
             throw new customError(400, "No request found");
         } else {
-            if (canceller.friends.includes(cancelRequestOfId)) {
+            if (rejector.friends.includes(rejectRequestOfId)) {
                 throw new customError(400, "You are friends");
             }
-            if (!canceller.requests.includes(cancelRequestOfId)) {
+            if (!rejector.requests.includes(rejectRequestOfId)) {
                 throw new customError(400, "No request found");
             }
         }
-        const response = await this.friendRepository.rejectIncomingRequest(
-            cancellerId,
-            cancelRequestOfId
+        const response = await this.friendRepository.deleteFriendRequest(
+            rejectRequestOfId,
+            rejectorId
         );
         return response;
     }
@@ -110,11 +110,27 @@ class FriendService {
         // Add accepter's id to Requester friend list
 
         await this.friendRepository.deleteFriendRequest(
-            accepterId,
-            requesterId
+            requesterId,
+            accepterId
         );
         await this.friendRepository.addToFriend(accepterId, requesterId);
         await this.friendRepository.addToFriend(requesterId, accepterId);
+    }
+
+    async removeFriend(user1Id, user2Id) {
+        const user1 = await this.friendRepository.getOneByData({
+            userId: user1Id
+        });
+        if (!user1) {
+            throw new customError(400, "No friend found");
+        }
+        if (!user1.friends.includes(user2Id)) {
+            throw new customError(400, "No such friend found");
+        }
+
+        await this.friendRepository.removeFriend(user1Id, user2Id);
+
+        await this.friendRepository.removeFriend(user2Id, user1Id);
     }
 }
 

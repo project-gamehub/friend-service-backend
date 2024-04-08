@@ -4,7 +4,8 @@ import {
     acceptRequest,
     cancelOutgoingRequest,
     rejectIncomingRequest,
-    sendRequest
+    sendRequest,
+    unfriend
 } from "../controllers/index.js";
 import { asyncEventHandler } from "../errors/errorUtils/index.js";
 import { verifyAccessToken } from "../middleware/index.js";
@@ -30,6 +31,11 @@ router.post(
     "/accept-request/:username",
     verifyAccessToken,
     asyncEventHandler(acceptRequest)
+);
+router.post(
+    "/unfriend/:username",
+    verifyAccessToken,
+    asyncEventHandler(unfriend)
 );
 
 router.get("/ping", (req, res) => {
