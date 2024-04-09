@@ -1,10 +1,8 @@
 import FriendService from "../services/friendService.js";
-import { getIdByUsername } from "../utils/index.js";
 
 const isMyFriend = async (req, res) => {
-    const username = req.params?.username;
-    const senderId = req?.senderId;
-    const userId = await getIdByUsername(username);
+    const senderId = req.senderId;
+    const userId = req.userId;
     const friendService = new FriendService();
     const response = await friendService.areFriends(senderId, userId);
 

@@ -13,62 +13,64 @@ import {
     unfriend
 } from "../controllers/index.js";
 import { asyncEventHandler } from "../errors/errorUtils/index.js";
-import { verifyAccessToken } from "../middleware/index.js";
+import { getIDByUsernameMiddleware, verifyAccessToken } from "../middleware/index.js";
 
 const router = express.Router();
-
-router.post(
-    "/send-request/:username",
-    verifyAccessToken,
-    asyncEventHandler(sendRequest)
-);
-router.post(
-    "/cancel-outgoing-request/:username",
-    verifyAccessToken,
-    asyncEventHandler(cancelOutgoingRequest)
-);
-router.post(
-    "/reject-incoming-request/:username",
-    verifyAccessToken,
-    asyncEventHandler(rejectIncomingRequest)
-);
-router.post(
-    "/accept-request/:username",
-    verifyAccessToken,
-    asyncEventHandler(acceptRequest)
-);
-router.post(
-    "/unfriend/:username",
-    verifyAccessToken,
-    asyncEventHandler(unfriend)
-);
-router.get(
-    "/get-friend-list/:username",
-    verifyAccessToken,
-    asyncEventHandler(getFriendList)
-);
-router.get(
-    "/get-friend-request-list/",
-    verifyAccessToken,
-    asyncEventHandler(getFriendRequestList)
-);
-router.get(
-    "/is-my-friend/:username",
-    verifyAccessToken,
-    asyncEventHandler(isMyFriend)
-);
-
-router.get(
-    "/friendship-status/:username",
-    verifyAccessToken,
-    asyncEventHandler(friendshipStatus)
-);
 
 router.get("/are-friends", asyncEventHandler(areFriends));
 
 router.get("/ping", (req, res) => {
     res.send({ pong: "Hlo" });
 });
+
+router.use(verifyAccessToken);
+
+router.get(
+    "/get-friend-request-list/",
+    asyncEventHandler(getFriendRequestList)
+);
+
+router.post(
+    "/send-request/:username",
+    getIDByUsernameMiddleware,
+    asyncEventHandler(sendRequest)
+);
+router.post(
+    "/cancel-outgoing-request/:username",
+    getIDByUsernameMiddleware,
+    asyncEventHandler(cancelOutgoingRequest)
+);
+router.post(
+    "/reject-incoming-request/:username",
+    getIDByUsernameMiddleware,
+    asyncEventHandler(rejectIncomingRequest)
+);
+router.post(
+    "/accept-request/:username",
+    getIDByUsernameMiddleware,
+    asyncEventHandler(acceptRequest)
+);
+router.post(
+    "/unfriend/:username",
+    getIDByUsernameMiddleware,
+    asyncEventHandler(unfriend)
+);
+router.get(
+    "/get-friend-list/:username",
+    getIDByUsernameMiddleware,
+    asyncEventHandler(getFriendList)
+);
+router.get(
+    "/is-my-friend/:username",
+    getIDByUsernameMiddleware,
+    asyncEventHandler(isMyFriend)
+);
+
+router.get(
+    "/friendship-status/:username",
+    getIDByUsernameMiddleware,
+    asyncEventHandler(friendshipStatus)
+);
 
 router.use(errorMiddleware);
 

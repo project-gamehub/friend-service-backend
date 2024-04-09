@@ -1,11 +1,9 @@
 import FriendService from "../services/friendService.js";
 import { customError } from "../errors/errorUtils/index.js";
-import { getIdByUsername } from "../utils/index.js";
 
 const sendRequest = async (req, res) => {
     const senderId = req.senderId;
-    const receiverUsername = req.params?.username;
-    const receiverId = await getIdByUsername(receiverUsername);
+    const receiverId = req.userId;
     if (senderId == receiverId) {
         throw new customError(400, "Receiver is same as sender");
     }
