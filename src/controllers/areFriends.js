@@ -7,8 +7,6 @@ const areFriends = async (req, res) => {
     if (!user1Id || !user2Id) {
         throw new customError(400, "User ids are missing");
     }
-    console.log("User 1 is: ", user1Id);
-    console.log("User 2 is: ", user2Id);
     const friendService = new FriendService();
     const response = await friendService.areFriends(user1Id, user2Id);
 

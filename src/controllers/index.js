@@ -7,6 +7,7 @@ import getFriendList from "./getFriendList.js";
 import getFriendRequestList from "./getFriendRequestList.js";
 import isMyFriend from "./isMyFriend.js";
 import areFriends from "./areFriends.js";
+import friendshipStatus from "./friendshipStatus.js";
 
 export {
     sendRequest,
@@ -17,5 +18,6 @@ export {
     getFriendList,
     getFriendRequestList,
     isMyFriend,
-    areFriends
+    areFriends,
+    friendshipStatus
 };

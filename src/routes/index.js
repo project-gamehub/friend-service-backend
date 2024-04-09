@@ -4,6 +4,7 @@ import {
     acceptRequest,
     areFriends,
     cancelOutgoingRequest,
+    friendshipStatus,
     getFriendList,
     getFriendRequestList,
     isMyFriend,
@@ -55,6 +56,12 @@ router.get(
     "/is-my-friend/:username",
     verifyAccessToken,
     asyncEventHandler(isMyFriend)
+);
+
+router.get(
+    "/friendship-status/:username",
+    verifyAccessToken,
+    asyncEventHandler(friendshipStatus)
 );
 
 router.get("/are-friends", asyncEventHandler(areFriends));

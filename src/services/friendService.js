@@ -143,6 +143,10 @@ class FriendService {
     async areFriends(user1Id, user2Id) {
         return await this.friendRepository.areFriends(user1Id, user2Id);
     }
+
+    async friendshipStatus(initiatorId, userId) {
+        return await this.friendRepository.friendshipStatus(initiatorId, userId);
+    }
 }
 
 export default FriendService;

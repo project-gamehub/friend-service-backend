@@ -5,9 +5,6 @@ import { getIdByUsername } from "../utils/index.js";
 const sendRequest = async (req, res) => {
     const senderId = req.senderId;
     const receiverUsername = req.params?.username;
-    if (!receiverUsername) {
-        throw new customError(400, "Receiver Username is required");
-    }
     const receiverId = await getIdByUsername(receiverUsername);
     if (senderId == receiverId) {
         throw new customError(400, "Receiver is same as sender");

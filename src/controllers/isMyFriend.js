@@ -1,13 +1,9 @@
 import FriendService from "../services/friendService.js";
-import { customError } from "../errors/errorUtils/index.js";
 import { getIdByUsername } from "../utils/index.js";
 
 const isMyFriend = async (req, res) => {
     const username = req.params?.username;
-    const senderId = req.senderId;
-    if (!username) {
-        throw new customError(400, "Username is required");
-    }
+    const senderId = req?.senderId;
     const userId = await getIdByUsername(username);
     const friendService = new FriendService();
     const response = await friendService.areFriends(senderId, userId);
