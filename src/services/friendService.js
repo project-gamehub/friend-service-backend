@@ -7,8 +7,7 @@ class FriendService {
     }
 
     async createUser(receiverId) {
-        const user = await this.friendRepository.createUser(receiverId);
-        return user;
+        return await this.friendRepository.createUser(receiverId);
     }
 
     async sendRequest(senderId, receiverId) {
@@ -134,12 +133,15 @@ class FriendService {
     }
 
     async getFriendList(userId) {
-        const data = await this.friendRepository.getFriendList(userId);
-        return data;
+        return await this.friendRepository.getFriendList(userId);
     }
 
     async getFriendRequestList(userId) {
         return await this.friendRepository.getFriendRequestList(userId);
+    }
+
+    async areFriends(user1Id, user2Id) {
+        return await this.friendRepository.areFriends(user1Id, user2Id);
     }
 }
 

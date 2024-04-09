@@ -1,5 +1,4 @@
 import FriendService from "../services/friendService.js";
-import { customError } from "../errors/errorUtils/index.js";
 
 const getFriendRequestList = async (req, res) => {
     const userId = req.senderId;

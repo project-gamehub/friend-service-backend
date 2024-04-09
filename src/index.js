@@ -5,6 +5,8 @@ import { PORT } from "./config/index.js";
 import { connectWithDB } from "./utils/index.js";
 
 const app = express();
+// app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
 
 app.use("/", router);
 
