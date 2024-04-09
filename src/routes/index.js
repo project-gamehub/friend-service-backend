@@ -2,6 +2,7 @@ import express from "express";
 import { errorMiddleware } from "../errors/errorMiddlewares/index.js";
 import {
     acceptRequest,
+    areFriends,
     cancelOutgoingRequest,
     getFriendList,
     getFriendRequestList,
@@ -55,6 +56,8 @@ router.get(
     verifyAccessToken,
     asyncEventHandler(isMyFriend)
 );
+
+router.get("/are-friends", asyncEventHandler(areFriends));
 
 router.get("/ping", (req, res) => {
     res.send({ pong: "Hlo" });
