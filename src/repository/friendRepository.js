@@ -49,6 +49,11 @@ class FriendRepository {
         return friendList?.friends ? friendList.friends : [];
     }
 
+    async getFriendRequestList(userId) {
+        const friendList = await Friend.findOne({ userId }, "requests -_id");
+        return friendList?.requests ? friendList.requests : [];
+    }
+
     async getOneByData(data, getFields = "") {
         const user = await Friend.findOne(data, getFields);
         return user;

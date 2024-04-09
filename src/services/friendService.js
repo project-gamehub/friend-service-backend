@@ -133,9 +133,13 @@ class FriendService {
         await this.friendRepository.removeFriend(user2Id, user1Id);
     }
 
-    async getFriendList(userId, page) {
+    async getFriendList(userId) {
         const data = await this.friendRepository.getFriendList(userId);
         return data;
+    }
+
+    async getFriendRequestList(userId) {
+        return await this.friendRepository.getFriendRequestList(userId);
     }
 }
 

@@ -4,6 +4,7 @@ import {
     acceptRequest,
     cancelOutgoingRequest,
     getFriendList,
+    getFriendRequestList,
     rejectIncomingRequest,
     sendRequest,
     unfriend
@@ -42,6 +43,11 @@ router.get(
     "/get-friend-list/:username",
     verifyAccessToken,
     asyncEventHandler(getFriendList)
+);
+router.get(
+    "/get-friend-request-list/",
+    verifyAccessToken,
+    asyncEventHandler(getFriendRequestList)
 );
 
 router.get("/ping", (req, res) => {
