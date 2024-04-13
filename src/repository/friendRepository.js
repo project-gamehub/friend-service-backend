@@ -62,10 +62,10 @@ class FriendRepository {
         return true;
     }
 
-    // friendshipStatusCode = 1 means Friends 
+    // friendshipStatusCode = 1 means Friends
     // friendshipStatusCode = 2 means The user who is initiating the query has requested the front user for friends
     // friendshipStatusCode = 3 means The user who is initiating the query has received friend request from the front user
-    // friendshipStatusCode = -1 means Strangers 
+    // friendshipStatusCode = -1 means Strangers
     async friendshipStatus(initiatorId, userId) {
         const initiator = await Friend.findOne({ userId: initiatorId });
         const user = await Friend.findOne({ userId: userId });
@@ -73,31 +73,30 @@ class FriendRepository {
             return {
                 friendshipStatusCode: 1,
                 friendshipStatus: "Friends"
-            }
+            };
         }
         if (user && user.requests.includes(initiatorId)) {
             return {
                 friendshipStatusCode: 2,
                 friendshipStatus: "Requested"
-            }
+            };
         }
         if (initiator && initiator.requests.includes(userId)) {
             return {
                 friendshipStatusCode: 3,
                 friendshipStatus: "Request incoming"
-            }
+            };
         }
         return {
             friendshipStatusCode: -1,
             friendshipStatus: "Strangers"
-        }
+        };
     }
 
     async getOneByData(data, getFields = "") {
         const user = await Friend.findOne(data, getFields);
         return user;
     }
-
 }
 
 export default FriendRepository;

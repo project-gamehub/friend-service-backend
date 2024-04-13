@@ -13,7 +13,10 @@ import {
     unfriend
 } from "../controllers/index.js";
 import { asyncEventHandler } from "../errors/errorUtils/index.js";
-import { getIDByUsernameMiddleware, verifyAccessToken } from "../middleware/index.js";
+import {
+    getIDByUsernameMiddleware,
+    verifyAccessToken
+} from "../middleware/index.js";
 
 const router = express.Router();
 
