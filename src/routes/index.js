@@ -17,13 +17,14 @@ import { getIDByUsernameMiddleware, verifyAccessToken } from "../middleware/inde
 
 const router = express.Router();
 
-router.get("/are-friends", asyncEventHandler(areFriends));
-
 router.get("/ping", (req, res) => {
     res.send({ pong: "Hlo" });
 });
 
+router.get("/are-friends", asyncEventHandler(areFriends));
+
 router.use(verifyAccessToken);
+// Write all the routes which requires Access Token Below this
 
 router.get(
     "/get-friend-request-list/",
