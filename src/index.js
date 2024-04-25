@@ -3,8 +3,14 @@ import axios from "axios";
 import router from "./routes/index.js";
 import { PORT } from "./config/index.js";
 import { connectWithDB } from "./utils/index.js";
+import cors from "cors";
 
 const app = express();
+
+// TODO Configure this later
+app.use(cors());
+
+// TODO Add Limit on this
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
