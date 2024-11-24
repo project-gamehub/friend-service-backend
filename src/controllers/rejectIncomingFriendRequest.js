@@ -2,7 +2,7 @@ import FriendService from "../services/friendService.js";
 
 const rejectIncomingRequest = async (req, res) => {
     const cancellerId = req.senderId;
-    const cancelRequestOf = req.userId;
+    const cancelRequestOf = req.params.userId;
 
     const friendService = new FriendService();
     await friendService.rejectIncomingRequest(cancellerId, cancelRequestOf);

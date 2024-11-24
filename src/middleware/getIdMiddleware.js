@@ -10,3 +10,5 @@ const getIDByUsernameMiddleware = asyncEventHandler(async (req, res, next) => {
 });
 
 export default getIDByUsernameMiddleware;
+
+// TODO - Delete this middleware as its of no use

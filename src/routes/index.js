@@ -7,20 +7,18 @@ import {
     friendshipStatus,
     getFriendList,
     getFriendRequestList,
+    getMyFriendList,
     isMyFriend,
     rejectIncomingRequest,
     sendRequest,
     unfriend
 } from "../controllers/index.js";
 import { asyncEventHandler } from "../errors/errorUtils/index.js";
-import {
-    getIDByUsernameMiddleware,
-    verifyAccessToken
-} from "../middleware/index.js";
+import { verifyAccessToken } from "../middleware/index.js";
 
 const router = express.Router();
 
-router.get("/ping", (req, res) => {
+router.get("/ping", (_, res) => {
     res.send({ pong: "Hlo" });
 });
 
@@ -34,47 +32,25 @@ router.get(
     asyncEventHandler(getFriendRequestList)
 );
 
-router.patch(
-    "/send-request/:username",
-    getIDByUsernameMiddleware,
-    asyncEventHandler(sendRequest)
-);
+router.patch("/send-request/:userId", asyncEventHandler(sendRequest));
 router.delete(
-    "/cancel-outgoing-request/:username",
-    getIDByUsernameMiddleware,
+    "/cancel-outgoing-request/:userId",
     asyncEventHandler(cancelOutgoingRequest)
 );
 router.delete(
-    "/reject-incoming-request/:username",
-    getIDByUsernameMiddleware,
+    "/reject-incoming-request/:userId",
     asyncEventHandler(rejectIncomingRequest)
 );
-router.patch(
-    "/accept-request/:username",
-    getIDByUsernameMiddleware,
-    asyncEventHandler(acceptRequest)
-);
-router.delete(
-    "/unfriend/:username",
-    getIDByUsernameMiddleware,
-    asyncEventHandler(unfriend)
-);
-router.get(
-    "/get-friend-list/:username",
-    getIDByUsernameMiddleware,
-    asyncEventHandler(getFriendList)
-);
-router.get(
-    "/is-my-friend/:username",
-    getIDByUsernameMiddleware,
-    asyncEventHandler(isMyFriend)
-);
+router.patch("/accept-request/:userId", asyncEventHandler(acceptRequest));
+router.delete("/unfriend/:userId", asyncEventHandler(unfriend));
 
-router.get(
-    "/friendship-status/:username",
-    getIDByUsernameMiddleware,
-    asyncEventHandler(friendshipStatus)
-);
+router.get("/get-my-friend-list", asyncEventHandler(getMyFriendList));
+
+router.get("/get-friend-list/:userId", asyncEventHandler(getFriendList));
+
+router.get("/is-my-friend/:userId", asyncEventHandler(isMyFriend));
+
+router.get("/friendship-status/:userId", asyncEventHandler(friendshipStatus));
 
 router.use(errorMiddleware);
 

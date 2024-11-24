@@ -2,7 +2,7 @@ import FriendService from "../services/friendService.js";
 
 const unfriend = async (req, res) => {
     const initiatorId = req.senderId;
-    const removeFriendId = req.userId;
+    const removeFriendId = req.params.userId;
 
     const friendService = new FriendService();
     await friendService.removeFriend(initiatorId, removeFriendId);

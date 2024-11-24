@@ -1,7 +1,8 @@
 import FriendService from "../services/friendService.js";
 
-const getFriendList = async (req, res) => {
-    const userId = req.params.userId;
+const getMyFriendList = async (req, res) => {
+    const userId = req.senderId;
+
     const friendService = new FriendService();
     const response = await friendService.getFriendList(userId);
 
@@ -12,4 +13,4 @@ const getFriendList = async (req, res) => {
     });
 };
 
-export default getFriendList;
+export default getMyFriendList;

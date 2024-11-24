@@ -2,7 +2,7 @@ import FriendService from "../services/friendService.js";
 
 const acceptRequest = async (req, res) => {
     const accepterId = req.senderId;
-    const requesterId = req.userId;
+    const requesterId = req.params.userId;
 
     const friendService = new FriendService();
 

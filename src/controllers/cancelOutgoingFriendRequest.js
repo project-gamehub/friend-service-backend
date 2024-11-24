@@ -3,7 +3,7 @@ import FriendService from "../services/friendService.js";
 // This will cancel the outgoing request of the sender
 const cancelOutgoingRequest = async (req, res) => {
     const cancellerId = req.senderId;
-    const cancelRequestFrom = req.userId;
+    const cancelRequestFrom = req.params.userId;
 
     const friendService = new FriendService();
     await friendService.cancelOutgoingRequest(cancellerId, cancelRequestFrom);
