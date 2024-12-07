@@ -5,7 +5,7 @@ import { customError } from "../errors/errorUtils/index.js";
 const getIdByUsername = async (username) => {
     try {
         const response = await axios.get(
-            USER_SERVICE_URL + "get-id-by-username/" + username
+            USER_SERVICE_URL + "/get-id-by-username/" + username
         );
         const id = response.data.data._id;
         return id;
